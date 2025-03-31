@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package mta_transit;
+
+// Message representing a single feed containing multiple trips
+message FeedMessage {
+  repeated Trip trip = 1;  // A feed can contain multiple trips
+}
+
+// Message representing a trip, including a trip ID, route ID, and its stop time updates
+message Trip {
+  string trip_id = 1;  // Unique identifier for the trip
+  string route_id = 2; // Route of the trip (e.g., 'A', 'B')
+  repeated StopTimeUpdate stop_time_updates = 3; // A trip can have multiple stop time updates
+}
+
+// Message representing the update for a particular stop in a trip
+message StopTimeUpdate {
+  string stop_id = 1;        // Stop identifier (e.g., 'A07N')
+  int64 arrival_time = 2;    // Arrival time at the stop (in Unix timestamp format)
+  int64 departure_time = 3;  // Departure time from the stop (in Unix timestamp format)
+}
